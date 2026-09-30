@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fight-Sync | Reserve sua vaga</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: dark;
+  --bg:#000; --fg:#fff; --red:#ff0000;
+  --boxe:#0a3cff; --muay:#ff4d0a; --jiu:#22ff22; --judo:#5a12ff;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:'Inter',Arial,sans-serif}
+.page{max-width:980px;margin:0 auto;padding:40px 24px 64px}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+h1{margin:0;font-family:'Archivo Black','Arial Black',Impact,sans-serif;font-size:clamp(44px,9vw,88px);line-height:.95;letter-spacing:-.01em}
+h1 .r{color:var(--red);display:block}
+.logo{font-family:'Archivo Black','Arial Black',sans-serif;font-size:22px;display:flex;align-items:center;gap:8px;margin-top:16px}
+.logo b{color:var(--red);font-weight:400}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:56px 48px;margin-top:56px}
+.card{--c:#fff;position:relative;padding:0 40px;text-align:center;min-height:190px;
+  border-left:3px solid var(--c);border-right:3px solid var(--c)}
+.card h2{margin:0 0 20px;font-family:'Archivo Black','Arial Black',sans-serif;font-size:clamp(22px,3.4vw,32px);letter-spacing:.01em;font-weight:400}
+.card .lbl{font-weight:800;font-size:18px;text-align:left;margin:0 0 12px}
+.row{display:flex;align-items:center;gap:20px}
+.num{min-width:58px;height:46px;border-radius:6px;background:var(--c);display:grid;place-items:center;font-weight:800;font-size:24px;color:#fff}
+.card.jiu .num{color:#fff}
+.inst{font-weight:800;font-size:11px;text-align:left}
+.btn{margin-top:26px;background:var(--red);color:#fff;border:0;font:800 17px 'Inter',Arial,sans-serif;padding:4px 22px;cursor:pointer;transition:transform .12s,opacity .2s}
+.btn:hover{filter:brightness(1.12)}
+.btn:active{transform:scale(.96)}
+.btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.btn:disabled{background:#444;cursor:not-allowed}
+.card.boxe{--c:var(--boxe)} .card.muay{--c:var(--muay)} .card.jiu{--c:var(--jiu)} .card.judo{--c:var(--judo)}
+.num.pop{animation:pop .3s}
+@keyframes pop{50%{transform:scale(1.25)}}
+@media (prefers-reduced-motion:reduce){.num.pop{animation:none}.btn{transition:none}}
+@media (max-width:640px){
+  .grid{grid-template-columns:1fr;gap:40px}
+  .card{padding:0 24px}
+}
+</style>
+</head>
+<body>
+<main class="page">
+  <header>
+    <h1><span class="r">RESERVE</span>SUA VAGA.</h1>
+    <div class="logo" aria-label="Fight-Sync">FIGHT-<b>SYNC</b> <span aria-hidden="true">🥋</span></div>
+  </header>
+
+  <section class="grid" aria-label="Modalidades">
+    <article class="card boxe">
+      <h2>BOXE</h2>
+      <p class="lbl">Vagas hoje</p>
+      <div class="row"><div class="num" data-n="15" aria-live="polite">15</div><span class="inst">Instrutor- Leandro</span></div>
+      <button class="btn">Check-in</button>
+    </article>
+
+    <article class="card muay">
+      <h2>MUAY THAI</h2>
+      <p class="lbl">Vagas hoje</p>
+      <div class="row"><div class="num" data-n="8" aria-live="polite">8</div><span class="inst">Instrutor- Arthur</span></div>
+      <button class="btn">Check-in</button>
+    </article>
+
+    <article class="card jiu">
+      <h2>JIU-JITSU</h2>
+      <p class="lbl">Vagas hoje</p>
+      <div class="row"><div class="num" data-n="3" aria-live="polite">3</div><span class="inst">Instrutor- Breno</span></div>
+      <button class="btn">Check-in</button>
+    </article>
+
+    <article class="card judo">
+      <h2>JUDO</h2>
+      <p class="lbl">Vagas hoje</p>
+      <div class="row"><div class="num" data-n="10" aria-live="polite">10</div><span class="inst">Instrutor- Alvaro</span></div>
+      <button class="btn">Check-in</button>
+    </article>
+  </section>
+</main>
+
+<script>
+document.querySelectorAll('.card').forEach(function(card){
+  var num = card.querySelector('.num');
+  var btn = card.querySelector('.btn');
+  var n = parseInt(num.dataset.n, 10);
+  btn.addEventListener('click', function(){
+    if (n <= 0) return;
+    n -= 1;
+    num.textContent = n;
+    num.classList.remove('pop'); void num.offsetWidth; num.classList.add('pop');
+    if (n === 0) { btn.disabled = true; btn.textContent = 'Lotado'; }
+  });
+});
+</script>
+</body>
+</html>
